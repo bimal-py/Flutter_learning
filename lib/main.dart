@@ -19,9 +19,9 @@ class FlutterLearningApp extends StatelessWidget {
           //
         ),
       ),
-
+      initialRoute: '/splash',
       routes: {
-        "/": (context) => SplashScreen(),
+        "/splash": (context) => SplashScreen(),
         "/login": (context) => LoginScreen(),
       },
 
