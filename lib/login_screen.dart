@@ -1,20 +1,23 @@
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  TextEditingController emailcontroller = TextEditingController(
+    text: "bimal@gmail.com",
+  );
+  TextEditingController passwordcontroller = TextEditingController(
+    text: "password",
+  );
+  LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   // title: Text("Login Screen"),
-
-      //   //
-      // ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Form(
+            key: formKey,
             child: Column(
               mainAxisSize: .max,
               children: [
@@ -26,7 +29,8 @@ class LoginScreen extends StatelessWidget {
 
                 //
                 SizedBox(height: 24),
-                TextField(
+                TextFormField(
+                  controller: emailcontroller,
                   decoration: InputDecoration(
                     labelText: "Enter your email",
                     labelStyle: TextStyle(),
@@ -47,9 +51,18 @@ class LoginScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(8),
                     ),
                   ),
+                  validator: (value) {
+                    if ((value?.isEmpty ?? false)) {
+                      return "Email field is required";
+                    } else if (!(value?.contains("@gmail.com") ?? false)) {
+                      return "Please enter valid email";
+                    }
+                    return null;
+                  },
                 ),
                 SizedBox(height: 24),
-                TextField(
+                TextFormField(
+                  controller: passwordcontroller,
                   obscureText: true,
                   obscuringCharacter: "*",
                   decoration: InputDecoration(
@@ -75,6 +88,14 @@ class LoginScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(8),
                     ),
                   ),
+                  validator: (value) {
+                    if ((value?.isEmpty ?? false)) {
+                      return "Password field is required";
+                    } else if ((value?.length ?? 0) < 6) {
+                      return "Password must be at least 6 characters";
+                    }
+                    return null;
+                  },
                 ),
                 SizedBox(height: 24),
                 Align(
@@ -88,17 +109,50 @@ class LoginScreen extends StatelessWidget {
 
                 SizedBox(height: 24),
                 ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.black,
-                    foregroundColor: Colors.white,
-                    fixedSize: Size(MediaQuery.sizeOf(context).width, 50),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
+                  onPressed: () {
+                    if (formKey.currentState!.validate()) {
+                      var email = emailcontroller.text;
+                      var password = passwordcontroller.text;
 
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            "Email is $email and password is $password",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          backgroundColor: Colors.green,
+                          duration: Duration(seconds: 8),
+                          margin: .all(24),
+                          padding: .all(12),
+                          behavior: .floating,
+                          elevation: 0,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                        ),
+                      );
+                    } else {}
+                  },
+
+                  // style: ElevatedButton.styleFrom(
+                  //   backgroundColor: Colors.black,
+                  //   foregroundColor: Colors.white,
+                  //   fixedSize: Size(MediaQuery.sizeOf(context).width, 50),
+                  //   shape: RoundedRectangleBorder(
+                  //     borderRadius: BorderRadius.circular(8),
+                  //   ),
+                  // ),
                   child: Text("Login"),
+                  //
+                ),
+                SizedBox(height: 24),
+                ElevatedButton(
+                  onPressed: () {
+                    emailcontroller.clear();
+                    passwordcontroller.clear();
+                  },
+
+                  child: Text("Clear Form"),
                   //
                 ),
                 //

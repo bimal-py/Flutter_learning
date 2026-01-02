@@ -14,9 +14,16 @@ class FlutterLearningApp extends StatelessWidget {
     return MaterialApp(
       title: "Flutter Learning App",
       theme: ThemeData(
-        colorScheme: .fromSeed(
-          seedColor: Colors.pink,
-          //
+        colorScheme: .fromSeed(seedColor: Colors.pink),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.black,
+            foregroundColor: Colors.white,
+            fixedSize: Size(MediaQuery.sizeOf(context).width, 50),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
+            ),
+          ),
         ),
       ),
       initialRoute: '/splash',
