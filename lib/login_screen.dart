@@ -1,14 +1,37 @@
 import 'package:flutter/material.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
+  LoginScreen({super.key});
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
   TextEditingController emailcontroller = TextEditingController(
     text: "bimal@gmail.com",
   );
+
   TextEditingController passwordcontroller = TextEditingController(
     text: "password",
   );
-  LoginScreen({super.key});
+
+  bool obscureText = true;
+
+  void onEyeIconClicked() {
+    // if (obscureText == true) {
+    //   obscureText = false;
+    // } else {
+    //   obscureText = true;
+    // }
+
+    setState(() {
+      obscureText = !obscureText;
+      print("the value is $obscureText");
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -63,15 +86,19 @@ class LoginScreen extends StatelessWidget {
                 SizedBox(height: 24),
                 TextFormField(
                   controller: passwordcontroller,
-                  obscureText: true,
+                  obscureText: obscureText,
                   obscuringCharacter: "*",
                   decoration: InputDecoration(
                     labelText: "Enter your password",
                     hintText: "**********",
                     prefixIcon: Icon(Icons.password),
                     suffixIcon: IconButton(
-                      onPressed: () {},
-                      icon: Icon(Icons.visibility_off),
+                      onPressed: () {
+                        onEyeIconClicked();
+                      },
+                      icon: Icon(
+                        obscureText ? Icons.visibility_off : Icons.visibility,
+                      ),
                     ),
                     contentPadding: .all(15),
                     floatingLabelBehavior: .auto,
