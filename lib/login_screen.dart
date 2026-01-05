@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
-  LoginScreen({super.key});
+  const LoginScreen({super.key});
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -139,12 +139,14 @@ class _LoginScreenState extends State<LoginScreen> {
                   onPressed: () {
                     if (formKey.currentState!.validate()) {
                       var email = emailcontroller.text;
-                      var password = passwordcontroller.text;
+                      Navigator.of(
+                        context,
+                      ).pushNamedAndRemoveUntil("/dashboard", (route) => false);
 
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           content: Text(
-                            "Email is $email and password is $password",
+                            "You'r logged in as: $email",
                             style: TextStyle(color: Colors.white),
                           ),
                           backgroundColor: Colors.green,

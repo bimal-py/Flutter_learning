@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_learning/dashboard_screen.dart';
 import 'package:flutter_learning/login_screen.dart';
 import 'package:flutter_learning/splash_screen.dart';
 
@@ -14,7 +15,7 @@ class FlutterLearningApp extends StatelessWidget {
     return MaterialApp(
       title: "Flutter Learning App",
       theme: ThemeData(
-        colorScheme: .fromSeed(seedColor: Colors.pink),
+        colorScheme: .fromSeed(seedColor: Colors.blue),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
             backgroundColor: Colors.black,
@@ -30,6 +31,7 @@ class FlutterLearningApp extends StatelessWidget {
       routes: {
         "/splash": (context) => SplashScreen(),
         "/login": (context) => LoginScreen(),
+        "/dashboard": (context) => DashboardScreen(),
       },
 
       //
